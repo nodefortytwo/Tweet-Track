@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Hour');
+        data.addColumn('number', 'Tweets');
+        data.addRows(24);
+        
+        {js}
+
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, {width: 1024, height: 400, title: 'Tweets by Hour'});
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="chart_div"></div>
+    {results_count} Tweets Counted
+  </body>
