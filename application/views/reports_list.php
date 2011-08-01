@@ -2,7 +2,7 @@
 
 <h2>TODO:</h2>
 <ul>
-	<li>Map Tweets</li>
+	<li><del>Map Tweets</del></li>
 	<li>Retweets per hour</li>
 	<li>Number of Unquie Tweeters</li>
 	<li>Total Reach by Date</li>
