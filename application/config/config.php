@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'localhost/tr';
+$config['base_url']	= 'rickburgess.me/tweettrack';
 
 /*
 |--------------------------------------------------------------------------
