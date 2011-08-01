@@ -42,7 +42,11 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'tweettrack';
+if ($_SERVER['HTTP_HOST'] == 'localhost'){
+	$db['default']['username'] = 'root';
+}else{
+	$db['default']['username'] = 'tweettrack';	
+}
 $db['default']['password'] = '';
 $db['default']['database'] = 'tweettrack';
 $db['default']['dbdriver'] = 'mysql';

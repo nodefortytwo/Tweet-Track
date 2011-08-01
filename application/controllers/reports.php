@@ -49,6 +49,7 @@ class Reports extends CI_Controller {
 		}else{
 			$data['report_id'] = $report_id;
 			$data['reports_list'] = $this->get_report_list($report_id, $view_mode, $result_id);
+			$data['view_mode_list'] = $this->get_view_mode_list($report_id, $view_mode, $result_id);
 			//load all the default views
 			$this->load->view('reports_detail', $data);
 			if ($result_id){
@@ -57,12 +58,37 @@ class Reports extends CI_Controller {
 							$data['tweets_per_hour'] = $this->_get_tph_tokens($report['result_sets'][$result_id]);
 							$this->load->view('tweets_per_hour', $data);
 						break;
+					case 'map':
+							$data['map'] = $this->_get_map_tokens($report['result_sets'][$result_id]);
+							$this->load->view('map', $data);
+						break;
 					default:
 						break;
 				}
 			}	
 		}	
 		$this->load->view('close');
+	}
+	
+	public function get_view_mode_list($report_id, $view_mode, $result_id){
+		if (!$result_id || !$report_id){return '';}
+		$modes = array(
+			'tweets_per_hour' => 'tweets per hour',
+			'map' => 'tweetmap',
+		);
+		
+		$list = '<div id="view_mode_list">';
+		$list .= '<ul>';
+		foreach ($modes as $key=>$mode){
+			$class = '';
+			if ($view_mode == $key ){
+				$class = 'active';
+			}
+			$url = '//' . site_url('reports/view_report/'. $report_id . '/' . $result_id . '/' . $key);
+			$list .= '<li><a class="'.$class.'" href="'.$url.'" >'. $mode . '</a></li>'; 
+		}
+		$list .= '</ul><strong>&lt;&lt; Change View Mode</strong></div>';
+		return $list;
 	}
 	
 	public function get_report_list($report_id, $view_mode, $result_id){
@@ -276,6 +302,42 @@ class Reports extends CI_Controller {
 			'results_count' => $data['total_records'],
 		);
 		
+	}
+	
+	private function _get_map_tokens($data){
+		
+		$points = array();
+		foreach($data['results'] as $result){
+			if (!is_null($result->geo)){
+				$points[] = array(
+					'user' => $result->from_user,
+					'geo' => implode(',', $result->geo->coordinates)
+				);		
+			}
+		}
+		
+		if (count($points) == 0){print('<h1>' . 'Sorry No tweets with Geo Data Avaliable' . '</h1>'); exit();}
+		
+		$marker_js = '';
+		foreach($points as $key=>$point){
+			$marker_js .= 'var latlng'.$key.' = new google.maps.LatLng('.$point['geo'].');
+			';
+			$marker_js .= 'var marker'.$key.' = new google.maps.Marker({
+						      position: latlng'.$key.', 
+						      map: map, 
+						      title:"'.$point['user'].'"
+					 	  }); ';
+		}	
+		
+		
+		return array(
+			'centre_coords' => $points[0]['geo'],
+			'results_count' => $data['total_records'],
+			'results_geocoded' => count($points),
+			'marker_js' => $marker_js
+		);
+		
+			
 	}
 		
 }

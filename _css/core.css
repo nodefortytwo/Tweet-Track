@@ -114,6 +114,46 @@ h1{
 	color:#A7C222;
 	background-color:#111;
 }
+
+#view_mode_list{
+	float:right;
+	
+}
+#view_mode_list strong{
+	display:block;
+	float:left;
+	background-color:white;
+	color:#111;
+	text-transform:uppercase;
+	padding:5px;
+}
+#view_mode_list ul{
+	float:left;
+	display:block;
+	margin:0;
+	padding:0;
+}
+
+#view_mode_list ul li{
+	float:left;
+	display:block;
+	margin:0;
+	padding:0;
+}
+#view_mode_list ul li a{
+	display:block;
+	padding:5px 10px;
+	color:#111;
+	background-color:#A7C222;
+	text-decoration:none;
+	text-transform:uppercase;
+	font-size:12px;
+}
+#view_mode_list ul li a:hover,
+#view_mode_list ul li a.active{
+	color:#A7C222;
+	background-color:#111;
+}
 #chart_div{
 	clear:both;
 	margin-top:10px;
@@ -134,4 +174,11 @@ h1{
 	margin:5px 0;
 	background-color:#222;
 	border:1px solid #ccc;
+}
+
+#content{
+	clear:both;
+	width:100%;
+	position:relative;
+	float:left;
 }

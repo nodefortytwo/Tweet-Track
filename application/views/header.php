@@ -1,4 +1,4 @@
-<body>
+<body onload="initialize();">
 <div id="oc">
 	<div id="ic">
 		<div id="header">
@@ -9,4 +9,4 @@
 				<?php if (isset($run_report_link)){echo $run_report_link;}?>
 			</ul>
 			<?php if (isset($message)){ ?><div id="message"><?php echo $message;?></div><?php }?>
-		</div>
+		

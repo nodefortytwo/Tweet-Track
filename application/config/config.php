@@ -14,7 +14,13 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'rickburgess.me/tweettrack';
+
+if ($_SERVER['HTTP_HOST'] == 'localhost'){
+	$config['base_url']	= $_SERVER['HTTP_HOST'] . '/tr';
+}else{
+	$config['base_url']	= $_SERVER['HTTP_HOST'] . '/tweettrack';
+}
+
 
 /*
 |--------------------------------------------------------------------------
